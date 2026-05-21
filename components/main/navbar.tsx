@@ -64,7 +64,7 @@ export function Navbar() {
 
       <nav className="bg-background/95 backdrop-blur-md border-b border-border shadow-sm">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-15">
             <Link href="/" className="flex items-center gap-3">
               <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
                 <Image

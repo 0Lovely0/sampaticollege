@@ -10,12 +10,14 @@ import { PlacementsSection } from "@/components/main/placements-section"
 import { AdmissionCTA } from "@/components/main/admission-cta"
 import { FAQSection } from "@/components/main/faq-section"
 import { ContactSection } from "@/components/main/contact-section"
+import ToppersList from "@/components/main/ToppersMarquee";
 
 export default function HomePage() {
   return (
     <>
       <HeroSection />
       <StatsSection />
+      <ToppersList/>
       <DepartmentsSection />
       <WhyChooseUs />
       <NoticesSection />

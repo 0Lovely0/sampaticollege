@@ -31,7 +31,7 @@ export function DepartmentsSection() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
           {departments.map((dept, index) => {
             const Icon = iconMap[dept.icon] || Heart
             return (
