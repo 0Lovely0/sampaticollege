@@ -1,180 +1,170 @@
 "use client";
 
 import React, { useState } from 'react';
-import Link from 'next/link';
-// Importing the shared dataset so both pages stay perfectly in sync
+import Link from 'next/link'; // Replaced with 'none' or standard routing elements based on local config
 import { toppersData } from "@/lib/data";
 
 export default function ToppersDetailedPage() {
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Filtering directly against the unified toppersData import
   const filteredToppers = toppersData.filter(topper => 
     topper.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    topper.achievement.toLowerCase().includes(searchTerm.toLowerCase())
+    topper.achievement.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    topper.college.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Helper function to parse dynamic subheadings out of the raw text strings safely
-  const getExamBadge = (text: string) => {
-    if (text.includes("NORCET")) return "NORCET ACHIever";
-    if (text.includes("MNS")) return "MILITARY NURSING CORPS";
-    return "STATE SELECTION";
+  const getExamBadgeColors = (text: string) => {
+    if (text.includes("NORCET")) return "bg-blue-50 text-blue-700 border-blue-200";
+    if (text.includes("MNS")) return "bg-purple-50 text-purple-700 border-purple-200";
+    return "bg-emerald-50 text-emerald-700 border-emerald-200";
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/60 py-6 px-4 sm:px-6 lg:px-8 font-sans">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased selection:bg-sky-500 selection:text-white">
+      
+      {/* Dynamic Background Accents */}
+      <div className="absolute top-0 inset-x-0 h-96 bg-gradient-to-b from-sky-100/40 via-slate-50/20 to-transparent pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
         
-        {/* Modern Breadcrumb Button */}
-        <div className="mb-8">
+        {/* Navigation Deck */}
+        <div className="mb-10 flex flex-wrap items-center justify-between gap-4">
           <Link 
             href="/" 
-            className="inline-flex items-center text-sm font-semibold text-sky-600 hover:text-sky-700 bg-white px-4 py-2 rounded-full shadow-sm border border-slate-100 hover:shadow transition-all group"
+            className="inline-flex items-center text-sm font-semibold text-slate-600 hover:text-sky-600 bg-white px-5 py-2.5 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition-all duration-200 group"
           >
             <svg className="w-4 h-4 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            Back to Dashboard
+            Dashboard
           </Link>
+
+          <div className="text-xs font-bold tracking-wider text-slate-400 uppercase bg-slate-200/50 px-3 py-1.5 rounded-lg">
+            Verified Alumni Database
+          </div>
         </div>
 
-        {/* Premium Header Architecture */}
-        <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 rounded-3xl p-8 sm:p-12 shadow-xl mb-12 relative overflow-hidden text-white border border-slate-800">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-emerald-500/5 rounded-full blur-2xl -ml-20 -mb-20 pointer-events-none" />
-          
-          <div className="relative z-10 lg:flex lg:items-center lg:justify-between gap-8">
-            <div className="max-w-2xl text-center lg:text-left">
-              <span className="bg-gradient-to-r from-amber-400 to-yellow-300 text-slate-950 text-xs font-black px-3.5 py-1.5 rounded-full uppercase tracking-widest shadow-sm">
-                Hall of Fame
-              </span>
-              <h1 className="text-4xl sm:text-5xl font-black tracking-tight mt-4 text-white">
-                Our Institutional Toppers
+        {/* Minimalist Header & Intelligent Filter */}
+        <div className="mb-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8">
+            <div>
+              <h1 className="text-3xl sm:text-4xl font-black tracking-tight text-slate-900">
+                Institutional <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-600 to-blue-700">Hall of Fame</span>
               </h1>
-              <p className="mt-4 text-slate-300 text-base sm:text-lg font-medium leading-relaxed">
-                Honoring the dedication, exceptional clinical proficiency, and monumental career milestones achieved by our elite alumni network.
+              <p className="mt-2 text-slate-500 max-w-xl text-sm sm:text-base font-medium">
+                Celebrating our graduates who secured top ranks across competitive national nursing and healthcare examinations.
               </p>
             </div>
-            
-            {/* Minimalist Search Deck */}
-            <div className="mt-8 lg:mt-0 w-full lg:w-96 flex-shrink-0">
+
+            {/* Premium Compact Search */}
+            <div className="w-full md:w-80 flex-shrink-0">
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <svg className="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.603 10.603z" />
-                  </svg>
-                </div>
                 <input
                   type="text"
-                  placeholder="Filter by name, exam, or station..."
-                  className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-slate-700 bg-slate-900/60 text-white placeholder-slate-400 shadow-inner focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all backdrop-blur-md text-sm"
+                  placeholder="Search by name, college, rank..."
+                  className="w-full pl-4 pr-10 py-3 rounded-2xl border border-slate-200 bg-white text-slate-900 placeholder-slate-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all text-sm font-medium"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
-              </div>
-              <div className="mt-2 text-right">
-                <span className="text-xs font-semibold text-slate-400">
-                  Showing {filteredToppers.length} of {toppersData.length} Rankers
-                </span>
+                <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400">
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.603 10.603z" />
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Detailed Grid Map */}
+        {/* Refined Modular Grid Layout */}
         {filteredToppers.length > 0 ? (
-          <div className="grid grid-cols-1 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredToppers.map((topper) => (
               <div 
                 key={topper.id} 
-                className="bg-white rounded-3xl shadow-md hover:shadow-xl border border-slate-100 flex flex-col sm:flex-row transition-all duration-300 overflow-hidden transform hover:-translate-y-1 group"
+                className="bg-white rounded-3xl border border-slate-200/70 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group"
               >
-                {/* Photo Studio Card Block */}
-                <div className="w-full sm:w-52 md:w-62 lg:w-82 h-72 sm:h-auto relative bg-slate-900 flex-shrink-0 overflow-hidden border-b sm:border-b-0 sm:border-r border-slate-100">
+                {/* 1. Portrait Frame (Optimized for genuine proportions) */}
+                <div className="w-full aspect-[4/5] relative bg-slate-50 border-b border-slate-100 overflow-hidden flex items-center justify-center p-4">
+                  
+                  {/* Subtle decorative framing overlay */}
+                  <div className="absolute inset-4 border border-slate-200/40 rounded-2xl pointer-events-none z-10 transition-colors group-hover:border-sky-500/20" />
+                  
                   <img
                     src={topper.imageUrl}
                     alt={topper.name}
-                    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    className="max-w-full max-h-full object-contain rounded-xl shadow-sm transition-transform duration-500 group-hover:scale-[1.02]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
+                  
+                  {/* Absolute Badge */}
+                  <span className={`absolute top-6 left-6 z-20 text-[10px] font-extrabold tracking-widest uppercase px-2.5 py-1 rounded-md border shadow-sm ${getExamBadgeColors(topper.achievement)}`}>
+                    {topper.achievement.includes("NORCET") ? "NORCET" : topper.achievement.includes("MNS") ? "MNS" : "Ranker"}
+                  </span>
                 </div>
 
-                {/* Structured Credentials Content Sheet */}
-                <div className="p-8 flex flex-col justify-between flex-grow bg-white">
+                {/* 2. Informational Profile Dossier */}
+                <div className="p-6 flex flex-col justify-between flex-grow">
                   <div>
-                    {/* Header: Name and Status Badge */}
-                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4 mb-4">
-                      <div>
-                        <span className="text-xs font-extrabold tracking-widest text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md uppercase mb-1 inline-block">
-                          {getExamBadge(topper.achievement)}
-                        </span>
-                        <h2 className="text-2xl font-black text-slate-900 tracking-tight mt-0.5 group-hover:text-blue-900 transition-colors">
-                          {topper.name}
-                        </h2>
-                      </div>
+                    {/* Identity Heading */}
+                    <div className="mb-4">
+                      <h2 className="text-xl font-bold text-slate-900 tracking-tight group-hover:text-sky-600 transition-colors">
+                        {topper.name}
+                      </h2>
+                      <p className="text-xs font-semibold text-slate-400 mt-0.5">
+                        S/o or D/o {topper.fatherName}
+                      </p>
                     </div>
-                    
-                    {/* Verified Selection Banner */}
-                    <div className="bg-slate-50 border border-slate-200/60 p-4 rounded-2xl flex items-start gap-3 shadow-inner">
-                      <div className="bg-white p-1.5 rounded-lg shadow-sm text-lg mt-0.5 flex-shrink-0">
-                        🏥
-                      </div>
-                      <p className="text-sm font-bold text-slate-800 leading-snug">
+
+                    {/* Achievement Callout Box */}
+                    <div className="bg-slate-50 border border-slate-100 p-3.5 rounded-xl mb-5">
+                      <div className="text-[11px] uppercase tracking-wider text-slate-400 font-bold mb-1">Placement / Selection</div>
+                      <p className="text-xs font-bold text-slate-800 leading-normal">
                         {topper.achievement}
                       </p>
                     </div>
 
-                    {/* Metadata Profiler Grid */}
-                    <div className="mt-5 space-y-3">
-                      <div className="grid grid-cols-3 text-xs py-1 border-b border-dashed border-slate-100 items-baseline">
-                        <span className="text-slate-400 font-semibold tracking-wide uppercase">Parents</span>
-                        <span className="text-slate-800 font-bold col-span-2">
-                          {topper.fatherName} & {topper.motherName}
-                        </span>
+                    {/* Academic Profiles Metadata */}
+                    <div className="space-y-2.5 text-xs">
+                      <div className="flex items-start gap-4">
+                        <span className="w-20 text-slate-400 font-semibold flex-shrink-0">Course</span>
+                        <span className="text-slate-700 font-medium">{topper.degree}</span>
                       </div>
-                      
-                      <div className="grid grid-cols-3 text-xs py-1 border-b border-dashed border-slate-100 items-baseline">
-                        <span className="text-slate-400 font-semibold tracking-wide uppercase">Qualification</span>
-                        <span className="text-slate-800 font-medium col-span-2">{topper.degree}</span>
+                      <div className="flex items-start gap-4">
+                        <span className="w-20 text-slate-400 font-semibold flex-shrink-0">College</span>
+                        <span className="text-slate-700 font-medium leading-normal">{topper.college}</span>
                       </div>
-
-                      <div className="grid grid-cols-3 text-xs py-1 border-b border-dashed border-slate-100">
-                        <span className="text-slate-400 font-semibold tracking-wide uppercase mt-0.5">Alma Mater</span>
-                        <span className="text-slate-700 font-medium col-span-2 leading-relaxed">
-                          {topper.college}
-                        </span>
-                      </div>
-
-                      <div className="grid grid-cols-3 text-xs py-1">
-                        <span className="text-slate-400 font-semibold tracking-wide uppercase mt-0.5">Schooling</span>
-                        <span className="text-slate-600 font-medium col-span-2 leading-relaxed">
-                          {topper.school}
-                        </span>
+                      <div className="flex items-start gap-4">
+                        <span className="w-20 text-slate-400 font-semibold flex-shrink-0">Schooling</span>
+                        <span className="text-slate-600 font-normal leading-normal">{topper.school}</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Footnote Location Banner */}
-                  <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-500 font-medium bg-slate-50/50 -mx-8 -mb-8 px-8 py-3.5">
-                    <svg className="w-4 h-4 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  {/* Card Footer: Geographic Origin */}
+                  <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-1.5 text-[11px] text-slate-400 font-medium">
+                    <svg className="w-3.5 h-3.5 text-slate-300 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25s-7.5-4.108-7.5-11.25a7.5 7.5 0 1115 0z" />
                     </svg>
                     <span className="truncate">
-                      <strong className="text-slate-700 font-bold">Native Base:</strong> {topper.address}
+                      Home Base: <strong className="text-slate-600 font-semibold">{topper.address}</strong>
                     </span>
                   </div>
                 </div>
+
               </div>
             ))}
           </div>
         ) : (
-          /* Sleek Empty Search State */
-          <div className="text-center py-20 bg-white rounded-3xl border border-slate-150 shadow-sm max-w-xl mx-auto">
-            <div className="text-4xl mb-4">🔍</div>
-            <h3 className="text-lg font-bold text-slate-800">No records discovered</h3>
-            <p className="text-slate-500 text-sm mt-1 px-6">
-              We couldn't find matches for "{searchTerm}". Double check the spelling or type an institution name.
+          /* Empty Search Frame */
+          <div className="text-center py-16 bg-white rounded-2xl border border-slate-200 shadow-sm max-w-md mx-auto">
+            <svg className="mx-auto h-10 w-10 text-slate-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.773 4.773z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12c0 5.385 4.365 9.75 9.75 9.75s9.75-4.365 9.75-9.75S17.385 2.25 12 2.25 2.25 6.615 2.25 12z" />
+            </svg>
+            <h3 className="mt-4 text-sm font-bold text-slate-900">No student profiles match</h3>
+            <p className="mt-1 text-xs text-slate-500 px-6">
+              Try adjusting your spelling or searching for a specific exam title instead.
             </p>
           </div>
         )}
