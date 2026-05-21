@@ -386,6 +386,11 @@ export const galleryImages = [
 
 // Ensure the keyword 'export' is right before 'const collegeInfo'
 export const collegeInfo = {
+  name: "Sampati Group of Colleges",
+  shortName: "SGC",
+  tagline: "Excellence in Healthcare Education",
+  established: "2005",
+
   phone: "8219620060",
   email: "info@sampatidevi.com",
   address: "Bijni Mandi, Himachal Pradesh, 175024",
