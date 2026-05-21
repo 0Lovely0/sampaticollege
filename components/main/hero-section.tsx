@@ -242,7 +242,7 @@ export function HeroSection() {
     <section className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-slate-950">
       
       {/* 1. TOP CAROUSEL WINDOW */}
-      <div className="absolute top-0 left-0 w-full h-[55vh] md:h-[70vh] z-0 bg-slate-900">
+     <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] lg:aspect-[21/9] z-0 bg-slate-900">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -279,7 +279,7 @@ export function HeroSection() {
       </div>
 
       {/* 2. BOTTOM CONTENTS SECTION */}
-      <div className="relative z-20 w-full mt-[55vh] md:mt-[65vh] lg:mt-[72vh] flex-grow flex items-end">
+      <div className=" w-full flex-grow flex items-end">
         {/* Replaced .container bound constraints with a full width profile built out for desktop bounds */}
         <div className="w-full mx-auto pb-0 md:pb-10 lg:max-w-7xl">
           
@@ -336,9 +336,8 @@ export function HeroSection() {
               </div>
 
               {/* Right Column: FIXED 3D POSTER FLIP CARD */}
-              <div className="lg:col-span-5 w-full flex justify-center items-center">
-                <div 
-                  className="relative w-full max-w-none  aspect-[4/5] md:aspect-[3/4] cursor-pointer"
+              <div className="lg:col-span-5 w-full h-full flex justify-center items-center">
+            <div className="relative w-full max-w-none lg:max-w-[300px] h-auto aspect-[4/5] md:aspect-[2/3] mx-auto cursor-pointer mt-10"
                   onClick={() => setIsFlipped(!isFlipped)}
                   onMouseEnter={() => setIsFlipped(true)}
                   onMouseLeave={() => setIsFlipped(false)}
@@ -353,7 +352,7 @@ export function HeroSection() {
                     
                     {/* POSTER FRONT */}
                     <div 
-                      className="absolute inset-0 w-full h-full bg-cover md:bg-contain bg-center rounded-2xl border border-white/10"
+                    className="absolute inset-0 w-full h-full bg-contain bg-center bg-no-repeat rounded-2xl border border-white/10"
                       style={{ 
                         backfaceVisibility: "hidden",
                         WebkitBackfaceVisibility: "hidden",
@@ -364,7 +363,7 @@ export function HeroSection() {
 
                     {/* POSTER BACK */}
                     <div 
-                      className="absolute inset-0 w-full h-full bg-cover md:bg-contain bg-center rounded-2xl border border-white/10"
+                     className="absolute inset-0 w-full h-full bg-contain bg-center bg-no-repeat rounded-2xl border border-white/10"
                       style={{ 
                         backfaceVisibility: "hidden", 
                         WebkitBackfaceVisibility: "hidden",
