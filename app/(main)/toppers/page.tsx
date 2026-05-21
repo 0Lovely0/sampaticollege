@@ -2,81 +2,19 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-
-interface Topper {
-  id: number;
-  name: string;
-  achievement: string;
-  fatherName: string;
-  motherName: string;
-  degree: string;
-  college: string;
-  school: string;
-  address: string;
-  imageUrl: string;
-  badgeColor?: string; // Optional custom tags for specific achievements
-}
-
-const detailedToppers: Topper[] = [
-  {
-    id: 1,
-    name: "Pratima",
-    achievement: "NORCET 7.0 Qualified - Selected as Nursing Officer at AIIMS Patna",
-    fatherName: "Sh. Jagdish Chand",
-    motherName: "Smt. Surekha Devi",
-    degree: "B.Sc Nursing",
-    college: "Sampati Devi Memorial Nursing College, Bijni Mandi (H.P.)",
-    school: "Govt. Senior Secondary School, Paunta",
-    address: "Vill. Upper Barot, Teh. Sarkaghat, Distt. Mandi, HP (175024)",
-    imageUrl: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=600&auto=format&fit=crop",
-  },
-  {
-    id: 2,
-    name: "Shivani",
-    achievement: "NORCET 9.0 Qualified - Selected as Nursing Officer at AIIMS Delhi",
-    fatherName: "Late Sh. Mohan Lal",
-    motherName: "Smt. Veena Devi",
-    degree: "B.Sc Nursing (4 Yrs)",
-    college: "Sampati Devi Memorial Nursing College, Bijni Mandi (H.P.)",
-    school: "Govt. Sen. Sec. School, Paunta (10+2)",
-    address: "Vill. Lunadha, PO Fatehpur, Teh. Sarkaghat, Distt. Mandi, HP (175024)",
-    imageUrl: "https://images.unsplash.com/photo-1594824813573-246434e33963?q=80&w=600&auto=format&fit=crop",
-  },
-  {
-    id: 3,
-    name: "Sheetal Kumari",
-    achievement: "Assistant Staff Nurse (26004 Qualified)",
-    fatherName: "Sh. Mast Ram",
-    motherName: "Smt. Pramila Devi",
-    degree: "B.Sc Nursing (4 Yrs)",
-    college: "Sampati Devi Memorial Nursing College, Bijni Mandi (H.P.)",
-    school: "Project Sen. Sec. School, Bhabanagar, Kinnaur",
-    address: "Village Kache, PO Solding, Teh. Nichar, Distt. Kinnaur, HP (172115)",
-    imageUrl: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=600&auto=format&fit=crop",
-  },
-  {
-    id: 4,
-    name: "Lt. Heena Kumari",
-    achievement: "MNS SCC 2024 Qualified - Selected as Lieutenant (Nursing Officer) at Command Hospital Airforce, Bangalore, Karnataka",
-    fatherName: "Sh. Balvir Singh",
-    motherName: "Smt. Kamla Devi",
-    degree: "B.Sc Nursing (4 Yrs)",
-    college: "Sampati Devi Memorial Nursing College, Bijni Mandi (H.P.)",
-    school: "GHS Tandi (8th) | GSSS Nanawan (10th) | GSSS Randhara (12th)",
-    address: "VPO Gagal, Teh. Balh, Distt. Mandi, HP (175006)",
-    imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
-  }
-];
+// Importing the shared dataset so both pages stay perfectly in sync
+import { toppersData } from "@/lib/data";
 
 export default function ToppersDetailedPage() {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredToppers = detailedToppers.filter(topper => 
+  // Filtering directly against the unified toppersData import
+  const filteredToppers = toppersData.filter(topper => 
     topper.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     topper.achievement.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Helper helper function to parse dynamic subheadings out of the raw text strings safely
+  // Helper function to parse dynamic subheadings out of the raw text strings safely
   const getExamBadge = (text: string) => {
     if (text.includes("NORCET")) return "NORCET ACHIever";
     if (text.includes("MNS")) return "MILITARY NURSING CORPS";
@@ -136,7 +74,7 @@ export default function ToppersDetailedPage() {
               </div>
               <div className="mt-2 text-right">
                 <span className="text-xs font-semibold text-slate-400">
-                  Showing {filteredToppers.length} of {detailedToppers.length} Rankers
+                  Showing {filteredToppers.length} of {toppersData.length} Rankers
                 </span>
               </div>
             </div>
@@ -157,9 +95,6 @@ export default function ToppersDetailedPage() {
                     src={topper.imageUrl}
                     alt={topper.name}
                     className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    onError={(e) => {
-                      e.currentTarget.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop"; 
-                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
                 </div>

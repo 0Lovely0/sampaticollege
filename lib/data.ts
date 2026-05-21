@@ -59,7 +59,7 @@ export const toppersData: Topper[] = [
     college: "Sampati Devi Memorial Nursing College, Bijni Mandi (H.P.)",
     school: "GHS Tandi (8th) | GSSS Nanawan (10th) | GSSS Randhara (12th)",
     address: "VPO Gagal, Teh. Balh, Distt. Mandi, HP (175006)",
-    imageUrl: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
+    imageUrl: "/toppers/heena.jpeg",
   }
 ];
 export const departments = [
